@@ -38,6 +38,7 @@ class Nou{
                   </form>
                 </div>';
         // Mostram footer.
+        echo '<div class="alert alert-info mt-3">Modificació a la branca develop.</div>';
         $footer = new Footer();
         $footer->mostrarFooter();
 
