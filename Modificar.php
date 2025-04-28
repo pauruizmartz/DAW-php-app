@@ -1,33 +1,47 @@
 <?php
-
+// Dependències necessàries.
 require_once('Connexio.php');
 require_once('Header.php');
-
+/**
+ * Classe Modificar
+ * 
+ * Classe per mostrar el formulari per modificar els productes a la base de dades
+ * 
+ * @package DAW-php-app
+ */
 class Modificar {
-
-    // Método para mostrar el formulario de modificación del producto
+    
+    /**
+     * Mostra el formulari de modificació d'un producte.
+     * 
+     * Aquest mètode obté la informació d'un producte mitjançant un ID i la mostra al HTML.
+     * 
+     * @param int $id L'ID del producte a modificar.
+     * 
+     * @return void
+     */
     public function mostrarFormulari($id) {
-        // Verifica si el ID del producto es válido
+        // Verifica si l'ID del producte és vàlid
         if (!isset($id) || !is_numeric($id)) {
             echo '<p>ID de producto no válido.</p>';
             return;
         }
 
-        // Obtiene la conexión a la base de datos
+        // Obté la connexió a la base de dades
         $conexionObj = new Connexio();
         $conexion = $conexionObj->obtenirConnexio();
 
-        // Consulta para obtener la información del producto
+        // Consulta per obtenir la informació del producte
         $consulta = "SELECT id, nom, descripció, preu, categoria_id
                      FROM productes
                      WHERE id = " . $id;
         $resultado = $conexion->query($consulta);
 
-        // Verifica si se encontró el producto
+        // Verifica si s'ha trobat el producte
         if ($resultado && $resultado->num_rows > 0) {
             $producto = $resultado->fetch_assoc();
 
-            // Imprime la estructura HTML del formulario de modificación
+            // Imprimeix la estructura HTML del formulari de modificació
             echo '<!DOCTYPE html>
                   <html lang="es">
                   <head>
@@ -79,21 +93,21 @@ class Modificar {
                         </form>
                     </div>';
             
-            // Incluye el pie de página
+            // Inclou el peu de pàgina
             require_once('Footer.php');
         } else {
             echo '<p>No se encontró el producto.</p>';
         }
 
-        // Cierra la conexión a la base de datos
+        // Tanca la connexió a la base de dades
         $conexion->close();
     }
 }
 
-// Obtiene el ID del producto de la variable GET
+// Obté l'ID del producte de la variable GET
 $idProducto = isset($_GET['id']) ? $_GET['id'] : null;
 
-// Crea una instancia de la clase Modificar y llama al método mostrarFormulari
+// Crea una instància de la classe Modificar i crida al mètode mostrarFormulari
 $modificarProducto = new Modificar();
 $modificarProducto->mostrarFormulari($idProducto);
 

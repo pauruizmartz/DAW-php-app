@@ -1,15 +1,29 @@
 <?php
 
+// Dependències necessàries 
 require_once('Connexio.php');
 require_once('Header.php');
 require_once('Footer.php');
 
+/**
+ * Classe Nou 
+ * 
+ * Classe per a gestionar l'afegiment de nous productes.
+ * 
+ * @package DAW-php-app
+ */
 class Nou{
+
+  /**
+   * Mostra el formulari per afegir un nou producte.
+   * 
+   * @return void
+   */
     public function mostrarFormulari(){
-        // Mostram el header. 
+        // Mostra el header. 
         $header = new Header();
         $header->mostrarHeader();
-        // Mostram el formulari.
+        // Mostra el formulari.
         echo '<div class="container mt-5">
                   <h2>Afegir un nou producte</h2>
                   <form action="Nou.php" method="POST">
@@ -29,7 +43,7 @@ class Nou{
                       <label for="categoria" class="form-label">Categoria</label>
                       <select class="form-control" id="categoria" name="categoria" required>
                         <option value="">Selecciona una categoria</option>';
-        // Mostram categories segons base de dades.
+        // Mostra categories segons base de dades.
         $this->mostrarCategories();
         echo '</select>
                     </div>
@@ -37,7 +51,7 @@ class Nou{
                     <a href="Principal.php" class="btn btn-secondary">Cancel·lar</a>
                   </form>
                 </div>';
-        // Mostram footer.
+        // Mostra footer.
         echo '<div class="alert alert-info mt-3">Modificació a la branca develop.</div>';
         $footer = new Footer();
         $footer->mostrarFooter();
@@ -45,7 +59,11 @@ class Nou{
         echo '</body>
               </html>';
     }
-    // Funció que recull categories de la base de dades.
+    /**
+     * Mostra les categories disponibles a la base de dades.
+     * 
+     * @return void 
+     */
     private function mostrarCategories(){
         $connexioSel = new Connexio();
         $connexio = $connexioSel->obtenirConnexio();
@@ -61,7 +79,16 @@ class Nou{
 
         $connexio->close();
     }
-    // Funció que inserta productes a la base de dades.
+    /**
+     * Afegeix un nou producte a la base de dades.
+     * 
+     * @param string $nom Nom del producte
+     * @param string $descripcio Descripcio del producte
+     * @param float $preu  Preu del producte
+     * @param int $categoria ID de la categoria del producte
+     * 
+     * @return void
+     */
     public function nouProducte($nom, $descripcio, $preu, $categoria){
         $connexioSel = new Connexio();
         $connexio = $connexioSel->obtenirConnexio();

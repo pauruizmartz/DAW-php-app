@@ -1,23 +1,38 @@
 <?php
-
+// Dependències necessàries.
 require_once('Connexio.php');
 require_once('Header.php');
-
+/**
+ * Classe Principal
+ * 
+ * Classe responsable de mostrar la llista de productes disponibles a la base de dades
+ * amb les seves respectives categories. També permet la modificació i eliminació de productes.
+ * 
+ * @package DAW-php-app
+ */
 class Principal {
-    
-    // Método para mostrar la lista de productos
+
+    /**
+     * Mètode per mostrar la llista de productes.
+     * 
+     * Aquest mètode obté la informació dels productes enmagatzemats a la base de dades, mostrant 
+     * el nom, descripció, preu i categoria. Després, genera una pàgina HTML que mostra una taula 
+     * amb els productes i les seves accions corresponents.
+     * 
+     * @return void
+     */
     public function mostrarProductes() {
-        // Obtiene la conexión a la base de datos
+        // Obté la connexió a la base de dades
         $conexionObj = new Connexio();
         $conexion = $conexionObj->obtenirConnexio();
 
-        // Consulta para obtener la lista de productos con información de categorías
+        // Consulta per obtenir la llista de productes amb informació de categories
         $consulta = "SELECT p.id, p.nom, p.descripció, p.preu, c.nom as categoria
                      FROM productes p
                      INNER JOIN categories c ON p.categoria_id = c.id";
         $resultado = $conexion->query($consulta);
 
-        // Estructura HTML de la página
+        // Estructura HTML de la pàgina
         echo '<!DOCTYPE html>
               <html lang="es">
               <head>
@@ -30,11 +45,11 @@ class Principal {
               <body>
                 <div class="container mt-5" style="margin-bottom: 100px">';
 
-        // Verifica si hay productos en la base de datos
+        // Verifica si hi ha productes a la base de dades
         if ($resultado->num_rows > 0) {
-            // Botón para agregar un nuevo producto
+            // Botó per afegir un nou producte
             echo '<hr><a href="Nou.php" class="btn btn-primary">Nou producte</a><hr>';
-            // Tabla para mostrar la lista de productos
+            // Taula per mostrar la llista de productes
             echo '<table class="table table-striped">';
             echo '<thead>
                     <tr>
@@ -49,7 +64,7 @@ class Principal {
                   </thead>';
             echo '<tbody>';
             $i = 1;
-            // Itera sobre los resultados y muestra cada producto en una fila de la tabla
+            // Itera sobre els resultats i mostra cada producte en una fila de la taula
             while ($fila = $resultado->fetch_assoc()) {
                 echo '<tr>
                         <td>' . $i . '</td>
@@ -66,19 +81,19 @@ class Principal {
             echo '</tbody>';
             echo '</table>';
             echo '</div>';
-            // Incluye el pie de página
+            // Inclou el peu de pàgina
             require_once('Footer.php');
         } else {
-            // Mensaje si no hay productos
+            // Missatge si no hi ha productes
             echo '<p>No hi ha productes.</p>';
         }
 
-        // Cierra la conexión a la base de datos
+        // Tanca la connexió a la base de dades
         $conexion->close();
     }
 }
 
-// Crea una instancia de la clase Principal y llama al método mostrarProductes
+// Crea una instància de la classe Principal i crida al mètode mostrarProductes
 $listaProductos = new Principal();
 $listaProductos->mostrarProductes();
 
