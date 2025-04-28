@@ -1,10 +1,26 @@
 <?php
-
+/**
+ * Classe Header
+ * 
+ * Classe per gestionar la visualització de l'encapçalament de l'aplicació web.
+ * Aquesta classe inclou els mètodes per mostrar el document HTML bàsic amb els
+ * enllaços a recursos externs com Bootstrap, així com el contigut específic de la capçalera.
+ * 
+ * @package DAW-php-app
+ */
 class Header {
-    
-    // Método para mostrar el encabezado
+
+    /**
+     * Mostra l'encapçalament de la pàgina web amb la estructura HTML bàsica,
+     * la barra de navegació i el carrusel d'imatges.
+     * 
+     * Aquest mètode imprimeix el codi HTML per la part superior de la pàgina
+     * incloent els enllaços a Bootstrap i estils personalitzats.
+     * 
+     * @return void
+     */
     public function mostrarHeader() {
-        // Imprime la estructura básica de un documento HTML con el encabezado y los estilos
+        // Imprimeix la estructura bàsica d'un document HTML amb la capçalera i els estils
         echo '<!DOCTYPE html>
               <html lang="es">
               <head>
@@ -51,7 +67,7 @@ class Header {
               </head>
               <body>';
         
-        // Imprime el encabezado con la barra de navegación y el logotipo
+        // Imprimeix la capçalera amb la barra de navegació i el logotipus
         echo '<header class="container-fluid navbar-custom">
                 <div class="container">
                     <div class="row align-items-center">
@@ -93,7 +109,7 @@ class Header {
                 </div>
               </header>';
         
-        // Imprime el carrusel con imágenes
+        // Imprimeix el carrusel amb imatges
         echo '<div class="container" id="carrusel-container">
     <div id="carrusel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -120,7 +136,7 @@ class Header {
     }
 }
 
-// Crea una instancia de la clase Header y llama al método mostrarHeader
+// Crea una instància de la classe Header i crida el mètode mostrarHeader
 $header = new Header();
 $header->mostrarHeader();
 
